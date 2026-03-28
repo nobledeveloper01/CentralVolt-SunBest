@@ -8,6 +8,7 @@ import {
 import useCartStore from '../store/cartStore'
 import { formatPrice } from '../data/products'
 import Button from '../components/ui/Button'
+import AnimatedSection from '../components/ui/AnimatedSection'
 
 const BANK_DETAILS = {
   bankName: 'GTBank (Guaranty Trust Bank)',
@@ -176,11 +177,11 @@ export default function CartPage() {
   // Empty cart
   if (items.length === 0 && step !== 'confirmed') {
     return (
-      <section className="py-14 sm:py-20 md:py-32">
+      <section className="py-14 sm:py-20 md:py-32 transition-colors duration-300">
         <div className="max-w-lg mx-auto px-4 text-center">
           <ShoppingBag size={48} className="sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4 sm:mb-6" />
-          <h1 className="text-xl sm:text-2xl font-bold text-charcoal mb-2 sm:mb-3">Your cart is empty</h1>
-          <p className="text-sm sm:text-base text-gray-500 mb-6 sm:mb-8">Browse our solar systems and find the perfect one for you.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-text-primary mb-2 sm:mb-3">Your cart is empty</h1>
+          <p className="text-sm sm:text-base text-text-secondary mb-6 sm:mb-8">Browse our solar systems and find the perfect one for you.</p>
           <Button to="/products" size="md" className="w-full sm:w-auto">Browse Products</Button>
         </div>
       </section>
@@ -191,44 +192,46 @@ export default function CartPage() {
   if (step === 'confirmed') {
     return (
       <>
-        <section className="bg-green-50 border-b">
+        <section className="bg-green-50 dark:bg-green-900/20 border-b">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 text-center">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-              <CheckCheck size={24} className="sm:w-8 sm:h-8 text-green-600" />
-            </div>
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-charcoal mb-1.5 sm:mb-2">Order Created Successfully!</h1>
-            <p className="text-sm sm:text-base text-gray-600">Please complete your payment and send confirmation via WhatsApp.</p>
+            <AnimatedSection>
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <CheckCheck size={24} className="sm:w-8 sm:h-8 text-green-600" />
+              </div>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary mb-1.5 sm:mb-2">Order Created Successfully!</h1>
+              <p className="text-sm sm:text-base text-text-secondary">Please complete your payment and send confirmation via WhatsApp.</p>
+            </AnimatedSection>
           </div>
         </section>
 
-        <section className="py-6 sm:py-8 md:py-12">
+        <section className="py-6 sm:py-8 md:py-12 transition-colors duration-300">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
             {/* Order ID */}
             <div className="bg-primary-lighter border-2 border-primary rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
-              <p className="text-xs sm:text-sm text-gray-600 mb-1">Your Order ID</p>
+              <p className="text-xs sm:text-sm text-text-secondary mb-1">Your Order ID</p>
               <div className="flex items-center justify-center gap-2 sm:gap-3">
-                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-charcoal tracking-wider break-all">{orderId}</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-text-primary tracking-wider break-all">{orderId}</span>
                 <button
                   onClick={() => copyToClipboard(orderId, 'orderId')}
                   className="p-1.5 sm:p-2 hover:bg-primary/10 rounded-lg transition-colors shrink-0"
                 >
-                  {copied === 'orderId' ? <CheckCheck size={16} className="text-green-600" /> : <Copy size={16} className="text-gray-500" />}
+                  {copied === 'orderId' ? <CheckCheck size={16} className="text-green-600" /> : <Copy size={16} className="text-text-secondary" />}
                 </button>
               </div>
-              <p className="text-[10px] sm:text-xs text-gray-500 mt-1.5 sm:mt-2">Use this as your transfer reference/narration</p>
+              <p className="text-[10px] sm:text-xs text-text-secondary mt-1.5 sm:mt-2">Use this as your transfer reference/narration</p>
             </div>
 
             {/* Bank Details */}
-            <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6">
-              <h3 className="text-base sm:text-lg font-bold text-charcoal mb-3 sm:mb-4 flex items-center gap-2">
+            <div className="bg-surface-elevated rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4 flex items-center gap-2">
                 <Landmark size={18} className="sm:w-5 sm:h-5 text-primary" />
                 Bank Payment Details
               </h3>
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-3 sm:mb-4 space-y-2">
-                <p className="text-xs sm:text-sm text-yellow-800 font-semibold">
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800/30 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-3 sm:mb-4 space-y-2">
+                <p className="text-xs sm:text-sm text-yellow-800 dark:text-yellow-200 font-semibold">
                   IMPORTANT: Use Order ID ({orderId}) as transfer reference.
                 </p>
-                <p className="text-xs sm:text-sm text-yellow-800 font-semibold">
+                <p className="text-xs sm:text-sm text-yellow-800 dark:text-yellow-200 font-semibold">
                   Before making any transfer, please confirm that the Account Name displayed on your bank app matches "{BANK_DETAILS.accountName}" — the same name as our company. Do NOT send money if the name does not match.
                 </p>
               </div>
@@ -239,16 +242,16 @@ export default function CartPage() {
                   { label: 'Account Name', value: BANK_DETAILS.accountName, key: 'accName' },
                   { label: 'Account Number', value: BANK_DETAILS.accountNumber, key: 'accNum', bold: true },
                 ].map((item) => (
-                  <div key={item.key} className="flex items-center justify-between p-3 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl">
+                  <div key={item.key} className="flex items-center justify-between p-3 sm:p-4 bg-surface-alt rounded-lg sm:rounded-xl">
                     <div className="min-w-0 mr-2">
-                      <p className="text-[10px] sm:text-xs text-gray-500">{item.label}</p>
-                      <p className={`${item.bold ? 'text-base sm:text-xl font-bold tracking-wider' : 'text-sm sm:text-base font-semibold'} text-charcoal break-all`}>{item.value}</p>
+                      <p className="text-[10px] sm:text-xs text-text-secondary">{item.label}</p>
+                      <p className={`${item.bold ? 'text-base sm:text-xl font-bold tracking-wider' : 'text-sm sm:text-base font-semibold'} text-text-primary break-all`}>{item.value}</p>
                     </div>
                     <button
                       onClick={() => copyToClipboard(item.value, item.key)}
-                      className="p-1.5 sm:p-2 hover:bg-gray-200 rounded-lg transition-colors shrink-0"
+                      className="p-1.5 sm:p-2 hover:bg-surface-alt rounded-lg transition-colors shrink-0"
                     >
-                      {copied === item.key ? <CheckCheck size={14} className="text-green-600" /> : <Copy size={14} className="text-gray-400" />}
+                      {copied === item.key ? <CheckCheck size={14} className="text-green-600" /> : <Copy size={14} className="text-text-muted" />}
                     </button>
                   </div>
                 ))}
@@ -256,11 +259,11 @@ export default function CartPage() {
 
               <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-primary-lighter rounded-lg sm:rounded-xl">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs sm:text-sm text-gray-600">Amount to Pay Now</span>
+                  <span className="text-xs sm:text-sm text-text-secondary">Amount to Pay Now</span>
                   <span className="text-lg sm:text-xl font-bold text-primary">{formatPrice(amountDue)}</span>
                 </div>
                 {paymentMethod === 'installment' && (
-                  <p className="text-[10px] sm:text-xs text-gray-500 text-right mt-1">
+                  <p className="text-[10px] sm:text-xs text-text-secondary text-right mt-1">
                     Deposit (30%) — then {formatPrice(monthly)}/month x {installmentMonths} months
                   </p>
                 )}
@@ -268,15 +271,15 @@ export default function CartPage() {
             </div>
 
             {/* Order Summary */}
-            <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6">
-              <h3 className="text-base sm:text-lg font-bold text-charcoal mb-3 sm:mb-4 flex items-center gap-2">
+            <div className="bg-surface rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4 flex items-center gap-2">
                 <ClipboardList size={18} className="sm:w-5 sm:h-5 text-primary" />
                 Order Summary
               </h3>
               <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center justify-between text-xs sm:text-sm">
-                    <span className="text-gray-600 truncate mr-2">{item.name} x {item.quantity}</span>
+                    <span className="text-text-secondary truncate mr-2">{item.name} x {item.quantity}</span>
                     <span className="font-semibold shrink-0">{formatPrice(item.price * item.quantity)}</span>
                   </div>
                 ))}
@@ -285,7 +288,7 @@ export default function CartPage() {
                   <span className="font-bold">{formatPrice(subtotal)}</span>
                 </div>
               </div>
-              <div className="text-xs sm:text-sm text-gray-600 space-y-0.5 sm:space-y-1">
+              <div className="text-xs sm:text-sm text-text-secondary space-y-0.5 sm:space-y-1">
                 <p><strong>Customer:</strong> {form.fullName}</p>
                 <p><strong>Phone:</strong> {form.phone}</p>
                 {form.email && <p><strong>Email:</strong> {form.email}</p>}
@@ -303,9 +306,9 @@ export default function CartPage() {
             </div>
 
             {/* WhatsApp Send */}
-            <div className="bg-green-50 border-2 border-green-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
-              <h3 className="text-base sm:text-lg font-bold text-charcoal mb-1.5 sm:mb-2">Final Step: Confirm on WhatsApp</h3>
-              <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+            <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800/30 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
+              <h3 className="text-base sm:text-lg font-bold text-text-primary mb-1.5 sm:mb-2">Final Step: Confirm on WhatsApp</h3>
+              <p className="text-xs sm:text-sm text-text-secondary mb-3 sm:mb-4">
                 Send your order details to our team on WhatsApp for confirmation.
               </p>
               <button
@@ -314,7 +317,7 @@ export default function CartPage() {
               >
                 <MessageCircle size={18} className="sm:w-[22px] sm:h-[22px]" /> Send Order to WhatsApp
               </button>
-              <p className="text-[10px] sm:text-xs text-gray-500 mt-2 sm:mt-3">
+              <p className="text-[10px] sm:text-xs text-text-secondary mt-2 sm:mt-3">
                 This will open WhatsApp with your full order details pre-filled.
               </p>
             </div>
@@ -334,115 +337,117 @@ export default function CartPage() {
   if (step === 'checkout') {
     return (
       <>
-        <section className="bg-gray-50 border-b">
+        <section className="bg-surface-alt border-b border-border transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
-            <button onClick={() => setStep('cart')} className="text-xs sm:text-sm text-gray-500 hover:text-primary flex items-center gap-1 mb-2 sm:mb-3">
+            <button onClick={() => setStep('cart')} className="text-xs sm:text-sm text-text-secondary hover:text-primary flex items-center gap-1 mb-2 sm:mb-3">
               <ArrowLeft size={14} className="sm:w-4 sm:h-4" /> Back to Cart
             </button>
-            <h1 className="text-2xl sm:text-3xl font-bold text-charcoal">Checkout</h1>
-            <p className="text-sm text-gray-500 mt-0.5 sm:mt-1">Enter your details to complete the order</p>
+            <AnimatedSection>
+              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Checkout</h1>
+              <p className="text-sm text-text-secondary mt-0.5 sm:mt-1">Enter your details to complete the order</p>
+            </AnimatedSection>
           </div>
         </section>
 
-        <section className="py-6 sm:py-8 md:py-12">
+        <section className="py-6 sm:py-8 md:py-12 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
               {/* Biodata Form */}
               <div className="lg:col-span-2">
-                <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8">
-                  <h2 className="text-lg sm:text-xl font-bold text-charcoal mb-4 sm:mb-6 flex items-center gap-2">
+                <div className="bg-surface rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6 md:p-8">
+                  <h2 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6 flex items-center gap-2">
                     <User size={18} className="sm:w-5 sm:h-5 text-primary" />
                     Your Details
                   </h2>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div className="sm:col-span-2">
-                      <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                      <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                         Full Name <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <User size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <User size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                         <input
                           type="text"
                           value={form.fullName}
                           onChange={(e) => updateForm('fullName', e.target.value)}
                           placeholder="Enter your first and last name"
-                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.fullName ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.fullName ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                         />
                       </div>
                       {errors.fullName && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.fullName}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                      <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                         Phone Number <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <Phone size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Phone size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                         <input
                           type="tel"
                           value={form.phone}
                           onChange={(e) => updateForm('phone', e.target.value)}
                           placeholder="08012345678"
-                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                         />
                       </div>
                       {errors.phone && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.phone}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                      <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                         Email Address
                       </label>
                       <div className="relative">
-                        <Mail size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <Mail size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                         <input
                           type="email"
                           value={form.email}
                           onChange={(e) => updateForm('email', e.target.value)}
                           placeholder="your@email.com (optional)"
-                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.email ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.email ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                         />
                       </div>
                       {errors.email && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.email}</p>}
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                      <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                         Delivery Address <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <MapPin size={14} className="sm:w-4 sm:h-4 absolute left-3 top-3 text-gray-400" />
+                        <MapPin size={14} className="sm:w-4 sm:h-4 absolute left-3 top-3 text-text-muted" />
                         <textarea
                           rows={2}
                           value={form.address}
                           onChange={(e) => updateForm('address', e.target.value)}
                           placeholder="Enter your full street address"
-                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 resize-none ${errors.address ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                          className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 resize-none ${errors.address ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                         />
                       </div>
                       {errors.address && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.address}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">City</label>
+                      <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">City</label>
                       <input
                         type="text"
                         value={form.city}
                         onChange={(e) => updateForm('city', e.target.value)}
                         placeholder="e.g. Ikorodu"
-                        className="w-full border border-gray-300 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        className="w-full border border-border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                      <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                         State <span className="text-red-500">*</span>
                       </label>
                       <select
                         value={form.state}
                         onChange={(e) => updateForm('state', e.target.value)}
-                        className={`w-full border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.state ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                        className={`w-full border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.state ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                       >
                         <option value="">Select state</option>
                         {['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'].map((s) => (
@@ -460,12 +465,12 @@ export default function CartPage() {
                       className={`w-full py-3 sm:py-4 rounded-full font-semibold transition-all flex items-center justify-center gap-2 text-sm sm:text-base ${
                         isFormValid
                           ? 'bg-primary hover:bg-primary-dark text-white'
-                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                          : 'bg-surface-alt text-text-muted cursor-not-allowed'
                       }`}
                     >
                       Confirm Order <ArrowRight size={18} />
                     </button>
-                    <p className="text-[10px] sm:text-xs text-gray-400 text-center mt-1.5 sm:mt-2">
+                    <p className="text-[10px] sm:text-xs text-text-muted text-center mt-1.5 sm:mt-2">
                       You will be shown bank details and a WhatsApp confirmation button next.
                     </p>
                   </div>
@@ -474,15 +479,15 @@ export default function CartPage() {
 
               {/* Sidebar */}
               <div className="space-y-4 sm:space-y-6">
-                <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6">
-                  <h3 className="text-base sm:text-lg font-bold text-charcoal mb-3 sm:mb-4">Order Review</h3>
+                <div className="bg-surface rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+                  <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4">Order Review</h3>
                   <div className="space-y-2.5 sm:space-y-3 mb-3 sm:mb-4">
                     {items.map((item) => (
                       <div key={item.id} className="flex gap-2.5 sm:gap-3">
                         <img src={item.image} alt={item.name} className="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-lg shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs sm:text-sm font-semibold text-charcoal truncate">{item.name}</p>
-                          <p className="text-[10px] sm:text-xs text-gray-500">Qty: {item.quantity}</p>
+                          <p className="text-xs sm:text-sm font-semibold text-text-primary truncate">{item.name}</p>
+                          <p className="text-[10px] sm:text-xs text-text-secondary">Qty: {item.quantity}</p>
                           <p className="text-xs sm:text-sm font-bold">{formatPrice(item.price * item.quantity)}</p>
                         </div>
                       </div>
@@ -490,15 +495,15 @@ export default function CartPage() {
                   </div>
                   <div className="border-t pt-2.5 sm:pt-3 space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Subtotal</span>
+                      <span className="text-text-secondary">Subtotal</span>
                       <span className="font-semibold">{formatPrice(subtotal)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Installation</span>
+                      <span className="text-text-secondary">Installation</span>
                       <span className="text-green-600 font-semibold">Included</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-500">Payment</span>
+                      <span className="text-text-secondary">Payment</span>
                       <span className="font-semibold">
                         {paymentMethod === 'full' ? 'Full Payment' : `Installment (${installmentMonths}mo)`}
                       </span>
@@ -510,29 +515,29 @@ export default function CartPage() {
                           <span className="font-semibold">{formatPrice(deposit)}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-500">Monthly</span>
+                          <span className="text-text-secondary">Monthly</span>
                           <span className="font-semibold">{formatPrice(monthly)}/mo</span>
                         </div>
                       </>
                     )}
                     <div className="border-t pt-2.5 sm:pt-3 flex justify-between">
-                      <span className="font-bold text-charcoal">Due Now</span>
+                      <span className="font-bold text-text-primary">Due Now</span>
                       <span className="font-bold text-lg sm:text-xl text-primary">{formatPrice(amountDue)}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-2.5 sm:space-y-3">
-                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                    <ShieldCheck size={16} className="sm:w-[18px] sm:h-[18px] text-primary shrink-0" />
+                <div className="bg-surface-alt rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-2.5 sm:space-y-3">
+                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-text-secondary">
+                    <ShieldCheck size={16} className="sm:w-4.5 sm:h-4.5 text-primary shrink-0" />
                     Secure Payment
                   </div>
-                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                    <Wrench size={16} className="sm:w-[18px] sm:h-[18px] text-primary shrink-0" />
+                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-text-secondary">
+                    <Wrench size={16} className="sm:w-4.5 sm:h-4.5 text-primary shrink-0" />
                     Installation Included
                   </div>
-                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                    <Headphones size={16} className="sm:w-[18px] sm:h-[18px] text-primary shrink-0" />
+                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-text-secondary">
+                    <Headphones size={16} className="sm:w-4.5 sm:h-4.5 text-primary shrink-0" />
                     Customer Support Available
                   </div>
                 </div>
@@ -578,112 +583,114 @@ export default function CartPage() {
 
     return (
       <>
-        <section className="bg-gray-50 border-b">
+        <section className="bg-surface-alt border-b border-border transition-colors duration-300">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
-            <button onClick={() => setStep('cart')} className="text-xs sm:text-sm text-gray-500 hover:text-primary flex items-center gap-1 mb-2 sm:mb-3">
+            <button onClick={() => setStep('cart')} className="text-xs sm:text-sm text-text-secondary hover:text-primary flex items-center gap-1 mb-2 sm:mb-3">
               <ArrowLeft size={14} className="sm:w-4 sm:h-4" /> Back to Cart
             </button>
-            <h1 className="text-2xl sm:text-3xl font-bold text-charcoal">Order via WhatsApp</h1>
-            <p className="text-sm text-gray-500 mt-0.5 sm:mt-1">Enter your details so we can process your order</p>
+            <AnimatedSection>
+              <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Order via WhatsApp</h1>
+              <p className="text-sm text-text-secondary mt-0.5 sm:mt-1">Enter your details so we can process your order</p>
+            </AnimatedSection>
           </div>
         </section>
 
-        <section className="py-6 sm:py-8 md:py-12">
+        <section className="py-6 sm:py-8 md:py-12 transition-colors duration-300">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 md:p-8">
-              <h2 className="text-lg sm:text-xl font-bold text-charcoal mb-4 sm:mb-6 flex items-center gap-2">
+            <div className="bg-surface rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6 md:p-8">
+              <h2 className="text-lg sm:text-xl font-bold text-text-primary mb-4 sm:mb-6 flex items-center gap-2">
                 <User size={18} className="sm:w-5 sm:h-5 text-primary" />
                 Your Details
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                     Full Name <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <User size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <User size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                     <input
                       type="text"
                       value={form.fullName}
                       onChange={(e) => updateForm('fullName', e.target.value)}
                       placeholder="Enter your first and last name"
-                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.fullName ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.fullName ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                     />
                   </div>
                   {errors.fullName && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.fullName}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                     Phone Number <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <Phone size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <Phone size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                     <input
                       type="tel"
                       value={form.phone}
                       onChange={(e) => updateForm('phone', e.target.value)}
                       placeholder="08012345678"
-                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.phone ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                     />
                   </div>
                   {errors.phone && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.phone}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                     Email Address
                   </label>
                   <div className="relative">
-                    <Mail size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <Mail size={14} className="sm:w-4 sm:h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                     <input
                       type="email"
                       value={form.email}
                       onChange={(e) => updateForm('email', e.target.value)}
                       placeholder="your@email.com (optional)"
-                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.email ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.email ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                     />
                   </div>
                   {errors.email && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.email}</p>}
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                     Delivery Address <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <MapPin size={14} className="sm:w-4 sm:h-4 absolute left-3 top-3 text-gray-400" />
+                    <MapPin size={14} className="sm:w-4 sm:h-4 absolute left-3 top-3 text-text-muted" />
                     <textarea
                       rows={2}
                       value={form.address}
                       onChange={(e) => updateForm('address', e.target.value)}
                       placeholder="Enter your full street address"
-                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 resize-none ${errors.address ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                      className={`w-full border rounded-lg sm:rounded-xl pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 resize-none ${errors.address ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                     />
                   </div>
                   {errors.address && <p className="text-red-500 text-[10px] sm:text-xs mt-1">{errors.address}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">City</label>
+                  <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">City</label>
                   <input
                     type="text"
                     value={form.city}
                     onChange={(e) => updateForm('city', e.target.value)}
                     placeholder="e.g. Ikorodu"
-                    className="w-full border border-gray-300 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full border border-border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-semibold text-charcoal mb-1 sm:mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-text-primary mb-1 sm:mb-1.5">
                     State <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={form.state}
                     onChange={(e) => updateForm('state', e.target.value)}
-                    className={`w-full border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.state ? 'border-red-400 focus:ring-red-300' : 'border-gray-300 focus:ring-primary/50'}`}
+                    className={`w-full border rounded-lg sm:rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm focus:outline-none focus:ring-2 ${errors.state ? 'border-red-400 focus:ring-red-300' : 'border-border focus:ring-primary/50'}`}
                   >
                     <option value="">Select state</option>
                     {['Abia','Adamawa','Akwa Ibom','Anambra','Bauchi','Bayelsa','Benue','Borno','Cross River','Delta','Ebonyi','Edo','Ekiti','Enugu','FCT','Gombe','Imo','Jigawa','Kaduna','Kano','Katsina','Kebbi','Kogi','Kwara','Lagos','Nasarawa','Niger','Ogun','Ondo','Osun','Oyo','Plateau','Rivers','Sokoto','Taraba','Yobe','Zamfara'].map((s) => (
@@ -695,12 +702,12 @@ export default function CartPage() {
               </div>
 
               {/* Order summary inline */}
-              <div className="mt-6 sm:mt-8 bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-5">
-                <h3 className="text-sm sm:text-base font-bold text-charcoal mb-3">Your Order</h3>
+              <div className="mt-6 sm:mt-8 bg-surface-alt rounded-lg sm:rounded-xl p-4 sm:p-5">
+                <h3 className="text-sm sm:text-base font-bold text-text-primary mb-3">Your Order</h3>
                 <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm mb-3">
                   {items.map((item) => (
                     <div key={item.id} className="flex justify-between">
-                      <span className="text-gray-600 truncate mr-2">{item.name} x {item.quantity}</span>
+                      <span className="text-text-secondary truncate mr-2">{item.name} x {item.quantity}</span>
                       <span className="font-semibold shrink-0">{formatPrice(item.price * item.quantity)}</span>
                     </div>
                   ))}
@@ -710,12 +717,12 @@ export default function CartPage() {
                   </div>
                 </div>
                 {paymentMethod === 'full' ? (
-                  <p className="text-[10px] sm:text-xs text-gray-500">Payment: Full Payment — {formatPrice(subtotal)}</p>
+                  <p className="text-[10px] sm:text-xs text-text-secondary">Payment: Full Payment — {formatPrice(subtotal)}</p>
                 ) : (
-                  <div className="text-[10px] sm:text-xs text-gray-500 space-y-0.5">
+                  <div className="text-[10px] sm:text-xs text-text-secondary space-y-0.5">
                     <p>Payment: Pay Small Small ({installmentMonths} months)</p>
-                    <p>Deposit (30%): <span className="font-semibold text-charcoal">{formatPrice(deposit)}</span></p>
-                    <p>Monthly: <span className="font-semibold text-charcoal">{formatPrice(monthly)}/month</span></p>
+                    <p>Deposit (30%): <span className="font-semibold text-text-primary">{formatPrice(deposit)}</span></p>
+                    <p>Monthly: <span className="font-semibold text-text-primary">{formatPrice(monthly)}/month</span></p>
                   </div>
                 )}
               </div>
@@ -727,7 +734,7 @@ export default function CartPage() {
                 >
                   <MessageCircle size={18} /> Send Order to WhatsApp
                 </button>
-                <p className="text-[10px] sm:text-xs text-gray-400 text-center mt-1.5 sm:mt-2">
+                <p className="text-[10px] sm:text-xs text-text-muted text-center mt-1.5 sm:mt-2">
                   Your details and order will be sent to our team. They will contact you to confirm and arrange delivery.
                 </p>
               </div>
@@ -741,20 +748,22 @@ export default function CartPage() {
   // STEP 1: Cart
   return (
     <>
-      <section className="bg-gray-50 border-b">
+      <section className="bg-surface-alt border-b border-border transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-charcoal">Your Cart</h1>
-          <p className="text-sm text-gray-500 mt-0.5 sm:mt-1">Review your selected products and complete your order</p>
+          <AnimatedSection>
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-primary">Your Cart</h1>
+            <p className="text-sm text-text-secondary mt-0.5 sm:mt-1">Review your selected products and complete your order</p>
+          </AnimatedSection>
         </div>
       </section>
 
-      <section className="py-6 sm:py-8 md:py-12">
+      <section className="py-6 sm:py-8 md:py-12 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-3 sm:space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-3 sm:p-4 md:p-6 flex gap-3 sm:gap-4 md:gap-6">
+                <div key={item.id} className="bg-surface rounded-xl sm:rounded-2xl border border-border p-3 sm:p-4 md:p-6 flex gap-3 sm:gap-4 md:gap-6">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -763,34 +772,34 @@ export default function CartPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-1.5 sm:gap-2">
                       <div className="min-w-0">
-                        <h3 className="text-sm sm:text-base font-bold text-charcoal truncate">{item.name}</h3>
-                        <p className="text-xs sm:text-sm text-gray-500 mt-0.5 line-clamp-1 hidden sm:block">{item.shortDescription}</p>
+                        <h3 className="text-sm sm:text-base font-bold text-text-primary truncate">{item.name}</h3>
+                        <p className="text-xs sm:text-sm text-text-secondary mt-0.5 line-clamp-1 hidden sm:block">{item.shortDescription}</p>
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="p-1.5 sm:p-2 text-gray-400 hover:text-red-500 transition-colors shrink-0"
+                        className="p-1.5 sm:p-2 text-text-muted hover:text-red-500 transition-colors shrink-0"
                       >
-                        <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" />
+                        <Trash2 size={16} className="sm:w-4.5 sm:h-4.5" />
                       </button>
                     </div>
 
                     <div className="flex items-end justify-between mt-2.5 sm:mt-4">
-                      <div className="flex items-center gap-0.5 sm:gap-1 bg-gray-100 rounded-full">
+                      <div className="flex items-center gap-0.5 sm:gap-1 bg-surface-alt rounded-full">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-surface-alt transition-colors"
                         >
                           <Minus size={12} className="sm:w-3.5 sm:h-3.5" />
                         </button>
                         <span className="w-6 sm:w-8 text-center text-xs sm:text-sm font-semibold">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors"
+                          className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-surface-alt transition-colors"
                         >
                           <Plus size={12} className="sm:w-3.5 sm:h-3.5" />
                         </button>
                       </div>
-                      <p className="text-sm sm:text-lg font-bold text-charcoal">
+                      <p className="text-sm sm:text-lg font-bold text-text-primary">
                         {formatPrice(item.price * item.quantity)}
                       </p>
                     </div>
@@ -799,7 +808,7 @@ export default function CartPage() {
               ))}
 
               <div className="flex gap-3 pt-1 sm:pt-2">
-                <Link to="/products" className="text-xs sm:text-sm text-gray-500 hover:text-primary flex items-center gap-1 transition-colors">
+                <Link to="/products" className="text-xs sm:text-sm text-text-secondary hover:text-primary flex items-center gap-1 transition-colors">
                   <ArrowLeft size={14} className="sm:w-4 sm:h-4" /> Continue Shopping
                 </Link>
               </div>
@@ -807,54 +816,54 @@ export default function CartPage() {
 
             {/* Order Summary */}
             <div className="space-y-4 sm:space-y-6">
-              <div className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6">
-                <h3 className="text-base sm:text-lg font-bold text-charcoal mb-3 sm:mb-4">Order Summary</h3>
+              <div className="bg-surface rounded-xl sm:rounded-2xl border border-border p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-bold text-text-primary mb-3 sm:mb-4">Order Summary</h3>
 
                 <div className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-6">
                   <div className="flex justify-between text-xs sm:text-sm">
-                    <span className="text-gray-500">Subtotal</span>
+                    <span className="text-text-secondary">Subtotal</span>
                     <span className="font-semibold">{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-xs sm:text-sm">
-                    <span className="text-gray-500">Installation</span>
+                    <span className="text-text-secondary">Installation</span>
                     <span className="text-green-600 font-semibold">Included</span>
                   </div>
                   <div className="border-t pt-2.5 sm:pt-3 flex justify-between">
-                    <span className="text-sm sm:text-base font-bold text-charcoal">Total</span>
-                    <span className="text-lg sm:text-xl font-bold text-charcoal">{formatPrice(subtotal)}</span>
+                    <span className="text-sm sm:text-base font-bold text-text-primary">Total</span>
+                    <span className="text-lg sm:text-xl font-bold text-text-primary">{formatPrice(subtotal)}</span>
                   </div>
                 </div>
 
                 {/* Payment Method */}
                 <div className="mb-4 sm:mb-6">
-                  <h4 className="text-xs sm:text-sm font-semibold text-charcoal mb-2 sm:mb-3">Payment Option</h4>
+                  <h4 className="text-xs sm:text-sm font-semibold text-text-primary mb-2 sm:mb-3">Payment Option</h4>
                   <div className="space-y-2">
-                    <label className={`flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl border-2 cursor-pointer transition-colors ${paymentMethod === 'full' ? 'border-primary bg-primary-lighter' : 'border-gray-200'}`}>
+                    <label className={`flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl border-2 cursor-pointer transition-colors ${paymentMethod === 'full' ? 'border-primary bg-primary-lighter' : 'border-border'}`}>
                       <input type="radio" name="payment" checked={paymentMethod === 'full'} onChange={() => setPaymentMethod('full')} className="accent-primary" />
                       <div>
                         <p className="text-xs sm:text-sm font-semibold">Full Payment</p>
-                        <p className="text-[10px] sm:text-xs text-gray-500">Pay {formatPrice(subtotal)} now</p>
+                        <p className="text-[10px] sm:text-xs text-text-secondary">Pay {formatPrice(subtotal)} now</p>
                       </div>
                     </label>
-                    <label className={`flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl border-2 cursor-pointer transition-colors ${paymentMethod === 'installment' ? 'border-primary bg-primary-lighter' : 'border-gray-200'}`}>
+                    <label className={`flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl border-2 cursor-pointer transition-colors ${paymentMethod === 'installment' ? 'border-primary bg-primary-lighter' : 'border-border'}`}>
                       <input type="radio" name="payment" checked={paymentMethod === 'installment'} onChange={() => setPaymentMethod('installment')} className="accent-primary" />
                       <div>
                         <p className="text-xs sm:text-sm font-semibold">Pay Small Small</p>
-                        <p className="text-[10px] sm:text-xs text-gray-500">Deposit + monthly payments</p>
+                        <p className="text-[10px] sm:text-xs text-text-secondary">Deposit + monthly payments</p>
                       </div>
                     </label>
                   </div>
                 </div>
 
                 {paymentMethod === 'installment' && (
-                  <div className="bg-gray-50 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
-                    <h4 className="text-xs sm:text-sm font-semibold text-charcoal mb-2 sm:mb-3">Payment Breakdown</h4>
+                  <div className="bg-surface-alt rounded-lg sm:rounded-xl p-3 sm:p-4 mb-4 sm:mb-6">
+                    <h4 className="text-xs sm:text-sm font-semibold text-text-primary mb-2 sm:mb-3">Payment Breakdown</h4>
                     <div className="mb-2 sm:mb-3">
-                      <label className="text-[10px] sm:text-xs text-gray-500 mb-1 block">Duration</label>
+                      <label className="text-[10px] sm:text-xs text-text-secondary mb-1 block">Duration</label>
                       <select
                         value={installmentMonths}
                         onChange={(e) => setInstallmentMonths(Number(e.target.value))}
-                        className="w-full border border-gray-300 rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        className="w-full border border-border rounded-lg px-2.5 sm:px-3 py-1.5 sm:py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                       >
                         <option value={3}>3 months</option>
                         <option value={6}>6 months</option>
@@ -864,11 +873,11 @@ export default function CartPage() {
                     </div>
                     <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-500">Deposit (30%)</span>
+                        <span className="text-text-secondary">Deposit (30%)</span>
                         <span className="font-semibold">{formatPrice(deposit)}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-500">Monthly x {installmentMonths}</span>
+                        <span className="text-text-secondary">Monthly x {installmentMonths}</span>
                         <span className="font-semibold">{formatPrice(monthly)}</span>
                       </div>
                     </div>
@@ -879,7 +888,7 @@ export default function CartPage() {
                   onClick={handleProceedToCheckout}
                   className="w-full bg-primary hover:bg-primary-dark text-white py-3 sm:py-3.5 rounded-full text-sm font-semibold transition-colors flex items-center justify-center gap-2"
                 >
-                  Proceed to Checkout <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  Proceed to Checkout <ArrowRight size={16} className="sm:w-4.5 sm:h-4.5" />
                 </button>
 
                 <button
@@ -890,22 +899,22 @@ export default function CartPage() {
                 </button>
               </div>
 
-              <div className="bg-gray-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-2.5 sm:space-y-3">
-                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                  <ShieldCheck size={16} className="sm:w-[18px] sm:h-[18px] text-primary shrink-0" />
+              <div className="bg-surface-alt rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-2.5 sm:space-y-3">
+                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-text-secondary">
+                  <ShieldCheck size={16} className="sm:w-4.5 sm:h-4.5 text-primary shrink-0" />
                   Secure Payment
                 </div>
-                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                  <Wrench size={16} className="sm:w-[18px] sm:h-[18px] text-primary shrink-0" />
+                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-text-secondary">
+                  <Wrench size={16} className="sm:w-4.5 sm:h-4.5 text-primary shrink-0" />
                   Installation Included
                 </div>
-                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-600">
-                  <Headphones size={16} className="sm:w-[18px] sm:h-[18px] text-primary shrink-0" />
+                <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-text-secondary">
+                  <Headphones size={16} className="sm:w-4.5 sm:h-4.5 text-primary shrink-0" />
                   Customer Support Available
                 </div>
               </div>
 
-              <p className="text-[10px] sm:text-xs text-gray-400 text-center">
+              <p className="text-[10px] sm:text-xs text-text-muted text-center">
                 Need help choosing? Chat with our expert to guide you.
               </p>
             </div>

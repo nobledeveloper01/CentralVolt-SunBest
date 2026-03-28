@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* Brand colors */
   --color-primary: #F26522;
   --color-primary-dark: #D9551A;
   --color-primary-darker: #BF4714;
@@ -9,11 +10,61 @@
   --color-secondary: #1B2A5B;
   --color-secondary-light: #243270;
   --color-charcoal: #1A1A2E;
+
+  /* Semantic tokens — light mode defaults */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-surface-elevated: #ffffff;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #9ca3af;
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  --color-card-shadow: rgba(0, 0, 0, 0.08);
+  --color-glow: transparent;
+
   --font-sans: 'Inter', sans-serif;
+}
+
+/* Dark mode: "Solar Night" */
+.dark {
+  --color-primary: #FF7A35;
+  --color-primary-dark: #F26522;
+  --color-primary-darker: #D9551A;
+  --color-primary-light: #2A1A0E;
+  --color-primary-lighter: #1F150A;
+  --color-secondary: #2E4085;
+  --color-secondary-light: #3A4F9A;
+  --color-charcoal: #F0F0F5;
+  --color-surface: #0A1628;
+  --color-surface-alt: #0F1D35;
+  --color-surface-elevated: #122040;
+  --color-text-primary: #F0F0F5;
+  --color-text-secondary: #94A3C4;
+  --color-text-muted: #5E6E8A;
+  --color-border: #1E3260;
+  --color-border-light: #162850;
+  --color-card-shadow: rgba(242, 101, 34, 0.08);
+  --color-glow: rgba(242, 101, 34, 0.12);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Form inputs adapt to theme */
+input, textarea, select {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+html, body {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -21,5 +72,88 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1A1A2E;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+}
+
+/* Gradient button hover effect */
+.btn-gradient {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  transition: background-position 0.4s ease, box-shadow 0.3s ease;
+}
+.btn-gradient:hover {
+  background-position: 100% 50%;
+}
+
+/* Dark mode glow for interactive elements */
+.dark .glow-card {
+  box-shadow: 0 0 20px var(--color-glow), 0 4px 12px var(--color-card-shadow);
+}
+.dark .glow-card:hover {
+  box-shadow: 0 0 30px rgba(242, 101, 34, 0.18), 0 8px 24px var(--color-card-shadow);
+}
+
+/* Dark mode card top glow (powered-on effect) */
+.dark .glow-top {
+  border-top: 2px solid rgba(255, 122, 53, 0.3);
+}
+
+/* Energy divider line */
+.energy-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0.2;
+}
+.dark .energy-divider {
+  opacity: 0.4;
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(135deg, #F26522, #FFB347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ken Burns hero animation */
+@keyframes kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+.animate-kenburns {
+  animation: kenburns 25s ease-in-out infinite alternate;
+}
+
+/* Floating button pulse */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  50% { box-shadow: 0 4px 20px rgba(242, 101, 34, 0.3); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Starfield for dark mode hero */
+.dark .starfield {
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 1px, transparent 0),
+    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.3) 1px, transparent 0),
+    radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.5) 1px, transparent 0),
+    radial-gradient(1px 1px at 70% 10%, rgba(255,255,255,0.3) 1px, transparent 0),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.4) 1px, transparent 0),
+    radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.2) 1px, transparent 0),
+    radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.35) 1px, transparent 0),
+    radial-gradient(1px 1px at 45% 90%, rgba(255,255,255,0.25) 1px, transparent 0);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

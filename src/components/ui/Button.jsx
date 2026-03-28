@@ -5,7 +5,7 @@ const variants = {
   secondary: 'bg-secondary hover:bg-secondary-light text-white',
   outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
   whatsapp: 'bg-green-500 hover:bg-green-600 text-white',
-  white: 'bg-white hover:bg-gray-50 text-charcoal',
+  white: 'bg-surface hover:bg-surface-alt text-text-primary',
 }
 
 const sizes = {

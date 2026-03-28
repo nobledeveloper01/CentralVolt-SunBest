@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Phone, Mail, MapPin, Globe, MessageCircle, ExternalLink } from 'lucide-react'
-import logo1 from '../../assets/logo1.jpeg'
+import logo2 from '../../assets/logo2.png'
 
 const productLinks = [
   { to: '/products/sun-best-basic', label: 'Sun Best Basic' },
@@ -26,12 +26,15 @@ const futureLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal text-white">
+    <footer className="bg-linear-to-b from-[#1A1A2E] to-[#0D0D1A]  text-white">
+      {/* Energy divider */}
+      <div className="energy-divider" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
-            <img src={logo1} alt="Centravolt Solar" className="h-12 w-auto mb-4" />
+            <img src={logo2} alt="Centravolt Solar" className="h-12 w-auto mb-4" />
             <p className="text-gray-400 text-sm leading-relaxed">
               Smart solar solutions for homes, shops, offices, and businesses — powering your TV, fan, lights, and phone charging.
             </p>
@@ -88,11 +91,12 @@ export default function Footer() {
         </div>
 
         {/* Coming Soon */}
-        <div className="border-t border-gray-700 mt-10 pt-8">
+        <div className="energy-divider mt-10" />
+        <div className="mt-8">
           <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">Coming Soon</h4>
           <div className="flex flex-wrap gap-2">
             {futureLinks.map((label) => (
-              <span key={label} className="text-xs text-gray-500 bg-gray-800 px-3 py-1.5 rounded-full">
+              <span key={label} className="text-xs text-gray-500 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">
                 {label}
               </span>
             ))}
@@ -100,9 +104,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-gray-700 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="energy-divider mt-8" />
+        <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-xs">
-            © {new Date().getFullYear()} Centravolt Solar Limited. All rights reserved.
+            &copy; {new Date().getFullYear()} Centravolt Solar Limited. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a href="https://www.centravoltsolar.com.ng" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-primary transition-colors" title="Visit our website"><Globe size={18} /></a>

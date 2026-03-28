@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import Button from '../components/ui/Button'
+import AnimatedSection from '../components/ui/AnimatedSection'
 
 const steps = [
   { step: 1, title: 'Choose Your Product', desc: 'Browse our range and pick the Sun Best system that fits your needs and budget.', color: 'bg-primary' },
@@ -14,20 +15,22 @@ export default function HowItWorksPage() {
     <>
       <section className="bg-secondary py-10 sm:py-14 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
-            Simple. Fast. Reliable.
-          </h1>
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-            Getting solar power has never been easier. Follow these simple steps and start enjoying electricity today.
-          </p>
+          <AnimatedSection>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+              Simple. Fast. Reliable.
+            </h1>
+            <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+              Getting solar power has never been easier. Follow these simple steps and start enjoying electricity today.
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
-      <section className="py-8 sm:py-12 md:py-20">
+      <section className="py-8 sm:py-12 md:py-20 transition-colors duration-300">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-4 sm:left-5 md:left-6 top-0 bottom-0 w-0.5 bg-gray-200 hidden sm:block" />
+            <div className="absolute left-4 sm:left-5 md:left-6 top-0 bottom-0 w-0.5 bg-border hidden sm:block" />
 
             <div className="space-y-6 sm:space-y-8 md:space-y-10">
               {steps.map((s) => (
@@ -35,9 +38,9 @@ export default function HowItWorksPage() {
                   <div className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 ${s.color} text-white rounded-full flex items-center justify-center font-bold text-sm sm:text-base md:text-lg shrink-0 relative z-10`}>
                     {s.step}
                   </div>
-                  <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-5 md:p-6 flex-1">
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-charcoal mb-1 sm:mb-2">{s.title}</h3>
-                    <p className="text-xs sm:text-sm md:text-base text-gray-600">{s.desc}</p>
+                  <div className="bg-surface rounded-xl sm:rounded-2xl shadow-sm border border-border-light p-4 sm:p-5 md:p-6 flex-1">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-text-primary mb-1 sm:mb-2">{s.title}</h3>
+                    <p className="text-xs sm:text-sm md:text-base text-text-secondary">{s.desc}</p>
                   </div>
                 </div>
               ))}
